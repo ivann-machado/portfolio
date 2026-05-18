@@ -8,7 +8,7 @@
 
 import "css-media-vars"
 import "augmented-ui/augmented-ui.min.css"
-import "../../css/stylesheet.css"
+import "../../css/main.css"
 import {
 	openContent,
 	closeContent,

@@ -1,0 +1,158 @@
+#main {
+    position: relative;
+    width: var(--width);
+    height: var(--final-h, var(--height));
+    flex: var(--media-lte-sm) 1 1 auto;
+    min-height: 0;
+    margin: auto;
+    background: radial-gradient(at center, rgb(255, 255, 255), var(--c0) 35%, black 95%);
+    --glow: var(--do-transform) 100px 100px 150px var(--c0-a);
+    box-shadow: var(--glow, none);
+    transition: transform 0.66s cubic-bezier(1, -1.5, 0.33, 2.75),
+        box-shadow 0.66s cubic-bezier(1, -1.5, 0.33, 2.75);
+}
+
+#wrap3d {
+    position: relative;
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    perspective: 1077px;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.wrap3d>*,
+.wrap3d>*::before,
+.wrap3d>*::after {
+    pointer-events: none;
+    transition: transform 0.66s cubic-bezier(1, -1.5, 0.33, 2.75),
+        border 0.66s cubic-bezier(1, -1.5, 0.33, 2.75),
+        box-shadow 0.66s cubic-bezier(1, -1.5, 0.33, 2.75),
+        clip-path 0.3s linear;
+}
+
+.wrap3d>* {
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 1.5;
+    z-index: var(--factor);
+    grid-column: calc(var(--col) + 3);
+    grid-row: calc(var(--row) + 3);
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    --mob-z-mult: var(--media-lte-sm) 0;
+    --mob-t-mult: var(--media-lte-sm) 20;
+    --mob-r-mult: var(--media-lte-sm) 0;
+    --rotateX: calc(var(--mob-r-mult, 1) * 15deg * var(--row));
+    --rotateY: calc(var(--mob-r-mult, 1) * -15deg * var(--col));
+    --translateZ: calc(var(--mob-z-mult, 1) * var(--z-step) * calc(var(--factor) - var(--z-base)));
+    --translateX: calc(var(--mob-t-mult, 1) * 2.3px * (6 - var(--factor)) * var(--col));
+    --translateY: calc(var(--mob-t-mult, 1) * 1px * (6 - var(--factor)) * var(--row));
+    --translate: translateZ(var(--translateZ)) translateX(var(--translateX)) translateY(var(--translateY));
+    --mob-scale: var(--media-lte-sm) scale(1.6);
+    --tf: var(--do-transform) var(--mob-scale, ) var(--translate) rotateY(var(--rotateY)) rotateX(var(--rotateX));
+    transform: var(--tf);
+}
+
+.wrap3d>[data-augmented-ui] {
+    --aug-border: initial;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--c3);
+    outline: 1px solid var(--c3);
+    background: repeating-linear-gradient(to right, var(--c1), var(--c2) 15%, var(--c1) 20%);
+    --aug-tl: 0px;
+    --aug-t: 0px;
+    --aug-tr: 0px;
+    --aug-r: 0px;
+    --aug-br: 0px;
+    --aug-b: 0px;
+    --aug-bl: 0px;
+    --aug-l: 0px;
+    --exploded: 0;
+}
+
+.wrap3d>[data-augmented-ui].selected {
+    animation: pulsate 1.5s infinite ease-in-out !important;
+    z-index: 1000 !important;
+    outline: 2px solid var(--cyan);
+    outline-offset: 4px;
+    pointer-events: auto;
+}
+
+.inner-tile.selected {
+    animation: pulsate-inner 1.5s infinite ease-in-out !important;
+    outline-color: var(--yellow) !important;
+    --aug-border-all: 2px;
+    --aug-border-bg: var(--yellow);
+}
+
+.left-trim {
+    position: absolute;
+    pointer-events: none;
+    height: 100%;
+    width: 400px;
+    left: 0px;
+    top: 0px;
+    transform-origin: 0% 50%;
+    transform: rotateY(90deg);
+    background: linear-gradient(to bottom, var(--c3) 1px, transparent 1px) bottom left / 100% calc(var(--height) / 5),
+        linear-gradient(to left, var(--c0), var(--c4) 110%);
+    border: 1px solid var(--c4);
+}
+
+.right-trim {
+    position: absolute;
+    pointer-events: none;
+    height: 100%;
+    width: 400px;
+    right: 0px;
+    top: 0px;
+    transform-origin: 100% 50%;
+    transform: rotateY(-90deg);
+    background: linear-gradient(to bottom, var(--c3) 1px, transparent 1px) bottom left / 100% calc(var(--height) / 5),
+        linear-gradient(to right, var(--c0), var(--c4) 110%);
+    border: 1px solid var(--c4);
+}
+
+.bottom-trim {
+    position: absolute;
+    pointer-events: none;
+    height: 400px;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+    transform-origin: 50% 100%;
+    transform: rotateX(90deg);
+    background: linear-gradient(to right, var(--c3) 1px, transparent 1px) bottom right / calc(var(--width) / 5) 100%,
+        linear-gradient(to bottom, var(--c0), var(--c4) 110%);
+    border: 1px solid var(--c4);
+}
+
+.top-trim {
+    position: absolute;
+    pointer-events: none;
+    height: 400px;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    transform-origin: 50% 0%;
+    transform: rotateX(-90deg);
+    background: linear-gradient(to right, var(--c3) 1px, transparent 1px) bottom right / calc(var(--width) / 5) 100%,
+        linear-gradient(to top, var(--c0), var(--c4) 110%);
+    border: 1px solid var(--c4);
+}
+
+.pres-text {
+    display: inline-block;
+    color: var(--c1-i);
+    font-weight: bold;
+    margin-top: 20%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}

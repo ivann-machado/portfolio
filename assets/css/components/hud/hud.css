@@ -1,0 +1,22 @@
+.hud-bar {
+    display: flex;
+    justify-content: center;
+    --hud-h: var(--media-lte-sm) 3.5rem;
+    height: var(--hud-h, calc(var(--height) * 0.2));
+    flex-shrink: 0;
+}
+
+.hud-bar__frame {
+    width: min(100%, 1040px);
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.12rem;
+    font-size: 0.78rem;
+    color: var(--cyan);
+    background: rgba(15, 15, 13, 0.92);
+    border: 1px solid rgba(240, 210, 0, 0.18);
+}

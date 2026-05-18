@@ -1,0 +1,61 @@
+#central-tile {
+    view-transition-name: central-tile;
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, clip-path 0.3s linear;
+}
+
+#central-tile.popped {
+    --tf: translateZ(300px) translateY(-50px) !important;
+    z-index: 100;
+    box-shadow: 0 20px 100px rgba(0, 0, 0, 0.9);
+}
+
+#central-tile.notransition {
+    transition: none !important;
+}
+
+#central-tile.fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    transform: none !important;
+
+    /* Re-apply base augmented styles since it left .wrap3d */
+    --aug-border: initial;
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--c3);
+    outline: 1px solid var(--c3);
+    background: var(--c2) !important;
+
+    /* Flatten corners */
+    --aug-tl: 0px !important;
+    --aug-tr: 0px !important;
+    --aug-bl: 0px !important;
+    --aug-br: 0px !important;
+    --aug-t: 0px !important;
+    --aug-b: 0px !important;
+    --aug-l: 0px !important;
+    --aug-r: 0px !important;
+    --aug-tl1: 0px !important;
+    --aug-tr1: 0px !important;
+    --aug-bl1: 0px !important;
+    --aug-br1: 0px !important;
+}
+
+#central-content {
+    padding: 2rem;
+    height: 100%;
+    overflow-y: auto;
+    text-align: left;
+    color: var(--c1-i);
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+}
+
+#central-tile.fullscreen #central-content {
+    opacity: 1;
+}

@@ -1,0 +1,57 @@
+/* CRT Effect Styles (Meduzen Style) */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+    background: radial-gradient(circle, transparent 65%, rgba(0, 0, 0, 0.25) 100%);
+    pointer-events: none;
+    z-index: 2147483647 !important;
+    transform: translateZ(99999px);
+    overflow: hidden;
+}
+
+.crt-overlay::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.crt-overlay::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: crt-flicker 0.01s infinite;
+}
+
+.scanline {
+    width: 100%;
+    height: 3px;
+    z-index: 3;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0.75;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: crt-scanline 6s linear infinite;
+}

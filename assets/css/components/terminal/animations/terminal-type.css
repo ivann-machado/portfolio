@@ -1,0 +1,25 @@
+@keyframes terminal-type {
+    0% {
+        height: 0rem;
+    }
+
+    16.4% {
+        height: 0rem;
+    }
+
+    21.6% {
+        height: var(--term-lh, 1rem);
+    }
+
+    58.6% {
+        height: calc(3 * var(--term-lh, 1rem));
+    }
+
+    64.0% {
+        height: calc(7 * var(--term-lh, 1rem));
+    }
+
+    100% {
+        height: calc(11 * var(--term-lh, 1rem));
+    }
+}

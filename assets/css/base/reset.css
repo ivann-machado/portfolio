@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100%;
+    --xs-fs: var(--media-xs) 1.35vw;
+    --sm-fs: var(--media-sm) 1.35vw;
+    --md-fs: var(--media-md) 12px;
+    font-size: var(--xs-fs, var(--sm-fs, var(--md-fs, 16px)));
+    overflow: var(--media-lte-sm) hidden;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    height: var(--media-lte-sm) 100dvh;
+    display: var(--media-lte-sm) flex !important;
+    flex-direction: var(--media-lte-sm) column;
+    overflow: var(--media-lte-sm) hidden;
+    font-family: "Oxanium", "Advent Pro", sans-serif;
+    color: var(--text);
+    --sm-width: var(--media-lte-sm) 100vw;
+    --md-width: var(--media-md) 900px;
+    --width: var(--sm-width, var(--md-width, 1200px));
+    --height: calc(var(--width) / 64 * 27);
+    --mobile-h: var(--media-lte-sm) 100%;
+    --final-h: var(--do-transform) var(--mobile-h);
+    --bgoffsetx: var(--media-lte-sm) left;
+    background: linear-gradient(to right,
+            var(--c3) 1px, transparent 1px,
+            transparent calc(var(--width) / 5 - 1px),
+            var(--c3) calc(var(--width) / 5 - 1px),
+            var(--c3) calc(var(--width) / 5)) var(--bgoffsetx, center) top / calc(var(--width) / 5) 100%,
+        linear-gradient(to bottom,
+            var(--c3) 1px, transparent 1px,
+            transparent calc(var(--height) / 5 - 1px),
+            var(--c3) calc(var(--height) / 5 - 1px),
+            var(--c3) calc(var(--height) / 5)) center top / 100% calc(var(--height) / 5),
+        repeating-linear-gradient(to right,
+            var(--c1), var(--c2) 15%, var(--c1) 20%) center center / calc(var(--width) / 5) calc(var(--height) / 5);
+    --do-transform: initial;
+}

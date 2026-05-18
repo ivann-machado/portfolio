@@ -1,0 +1,64 @@
+#terminal-frame {
+    text-align: left;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    overflow: hidden;
+    width: 0%;
+    height: 0%;
+    transition: width 200ms ease-in, height 200ms ease-in;
+    --aug-inlay: initial;
+    --aug-inlay-all: 0px;
+    --aug-inlay-bg: var(--c5);
+    /* --aug-inlay-opacity: 0.99; */
+    --aug-border: initial;
+    --aug-border-all: 5px;
+    z-index: 10;
+    background-color: var(--c5);
+}
+
+#terminal-frame.open {
+    --w: var(--media-lte-sm) 100vw;
+    --h: var(--media-lte-sm) 100vh;
+    width: var(--w, 100%);
+    height: var(--h, 100%);
+}
+
+#terminal {
+    --term-fs: var(--media-lte-sm) 14px;
+    --term-lh: var(--media-lte-sm) 18px;
+    font-family: monospace;
+    font-size: var(--term-fs, 1rem);
+    font-weight: bold;
+    line-height: var(--term-lh, 1rem);
+    color: var(--c1-i);
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    right: 7px;
+    height: 0rem;
+    max-height: calc(100% - 14px);
+    transition: height 150ms ease-in;
+}
+
+#terminal.open {
+    animation: terminal-type 5.5s step-end forwards;
+    transition: none;
+}
+
+#term-cmd {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: var(--c1-i);
+    width: 0%;
+    transition: width 200ms ease-in;
+}
+
+#term-cmd.open {
+    animation: cmd-type 750ms step-end forwards;
+    transition: none;
+}

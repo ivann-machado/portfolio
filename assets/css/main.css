@@ -1,0 +1,25 @@
+/* 1. Settings & Base */
+@import "./settings/variables.css";
+@import "./base/reset.css";
+@import "./base/utilities.css";
+
+/* 2. Components & Animations */
+@import "./components/hud/hud.css";
+
+@import "./components/terminal/animations/terminal-type.css";
+@import "./components/terminal/animations/cmd-type.css";
+@import "./components/terminal/terminal.css";
+
+@import "./components/crt/animations/crt-flicker.css";
+@import "./components/crt/animations/crt-scanline.css";
+@import "./components/crt/crt.css";
+
+@import "./components/grid/animations/floating.css";
+@import "./components/grid/animations/pulsate.css";
+@import "./components/grid/animations/pulsate-inner.css";
+@import "./components/grid/animations/fade-in.css";
+@import "./components/grid/grid-base.css";
+@import "./components/grid/grid-explosion.css";
+
+@import "./components/central-tile/central-tile.css";
+@import "./components/back-btn/back-btn.css";

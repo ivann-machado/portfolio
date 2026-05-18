@@ -1,0 +1,8 @@
+/* Global utility classes */
+.hidden {
+    display: none !important;
+}
+
+.notransition {
+    transition: none !important;
+}

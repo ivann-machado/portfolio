@@ -1,0 +1,19 @@
+@keyframes pulsate {
+    0% {
+        filter: drop-shadow(0 0 10px var(--cyan)) brightness(1.2);
+        translate: 0px 0px 100px;
+        scale: 1;
+    }
+
+    50% {
+        filter: drop-shadow(0 0 25px var(--cyan)) brightness(1.6);
+        translate: 0px 0px 150px;
+        scale: 1.08;
+    }
+
+    100% {
+        filter: drop-shadow(0 0 10px var(--cyan)) brightness(1.2);
+        translate: 0px 0px 100px;
+        scale: 1;
+    }
+}

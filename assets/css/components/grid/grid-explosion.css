@@ -1,0 +1,75 @@
+#main.explosion .wrap3d>[data-augmented-ui],
+#main.partial-explosion .wrap3d>.inner-tile {
+    --do-transform: ;
+    --aug-border-bg: var(--c0);
+    outline: none;
+    --exploded: 1;
+    --aug-tl: 0.75rem;
+    --aug-t: 0.75rem;
+    --aug-tr: 0.75rem;
+    --aug-r: 0.75rem;
+    --aug-br: 0.75rem;
+    --aug-b: 0.75rem;
+    --aug-bl: 0.75rem;
+    --aug-l: 0.75rem;
+}
+
+#main.partial-explosion .left-trim {
+    left: calc(var(--width) / 5);
+}
+
+#main.partial-explosion .right-trim {
+    right: calc(var(--width) / 5);
+}
+
+#main.partial-explosion .bottom-trim {
+    bottom: calc(var(--height) / 5);
+}
+
+#main.partial-explosion .top-trim {
+    top: calc(var(--height) / 5);
+}
+
+#main.bowl {
+    --z-step: -100px;
+    --z-base: 4;
+}
+
+#main.mountain {
+    --z-step: 100px;
+    --z-base: 2;
+}
+
+#main.partial-explosion.bowl .wrap3d>.inner-tile {
+    --z-step: -100px;
+}
+
+#main.partial-explosion.mountain .wrap3d>.inner-tile {
+    --z-step: 100px;
+}
+
+#main.explosion .wrap3d>[data-augmented-ui] {
+    animation: floating 8s ease-in-out infinite alternate;
+}
+
+#main.explosion .wrap3d>#get-augmented {
+    --aug-tl1-width: 15%;
+    --aug-tr1-width: 15%;
+    --aug-tl1-height: 50%;
+    --aug-tr1-height: 50%;
+    --aug-br1: 50%;
+    --aug-bl1: 50%;
+    --aug-bl1-clipmod-x: 0.7032967;
+    --aug-br1-clipmod-x: 0.7032967;
+    --aug-bl1-clipmod-y: 0.2967033;
+    --aug-br1-clipmod-y: 0.2967033;
+}
+
+#get-augmented .pres-text {
+    display: none;
+}
+
+#main.explosion #get-augmented .pres-text {
+    display: inline-block;
+    color: #777;
+}

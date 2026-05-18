@@ -1,0 +1,11 @@
+@keyframes floating {
+    0% {
+        translate: 0 -10px;
+        rotate: x -2deg;
+    }
+
+    100% {
+        translate: 0 10px;
+        rotate: x 2deg;
+    }
+}

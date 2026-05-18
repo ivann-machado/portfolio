@@ -1,0 +1,9 @@
+@keyframes cmd-type {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 60%;
+    }
+}
