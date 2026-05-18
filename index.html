@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ivann Machado | Grid Menu</title>
+	<meta name="description" content="Portfolio menu in-game base for Ivann Machado.">
+	<link rel="icon" href="data:,">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@400;500;600;700&family=Oxanium:wght@400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script type="module" src="/assets/ts/init/index.ts"></script>
+</head>
+
+<body style="display: none;">
+
+	<header class="hud-bar">
+		<div class="hud-bar__frame" data-augmented-ui="t-clip-x both">
+			<span>Neural Portfolio Interface</span>
+		</div>
+	</header>
+
+
+	<div id="main">
+		<div id="wrap3d" class="wrap3d">
+			<div class="left-trim"></div>
+			<div class="right-trim"></div>
+			<div class="bottom-trim"></div>
+			<div class="top-trim"></div>
+
+			<div data-augmented-ui="tl-2-clip-xy tr-rect r-step-xy br-2-rect-x b-rect bl-2-rect-xy"
+				style="--factor: 2; --row: -2; --col: -2;"></div>
+			<div data-augmented-ui="r-scoop-y br-2-round-xy b-round-x bl-2-round-x l-clip-y"
+				style="--factor: 3; --row: -2; --col: -1;"></div>
+			<div data-augmented-ui="r-round-xy br-2-scoop b-scoop-x bl-2-scoop l-round-xy"
+				style="--factor: 4; --row: -2; --col: 0;"></div>
+			<div data-augmented-ui="t-clip-xy br-clip-y b-rect-xy bl-round-x l-clip-x"
+				style="--factor: 3; --row: -2; --col: 1;"></div>
+			<div data-augmented-ui="tl-rect tr-2-clip-xy br-2-rect-xy b-rect bl-2-rect-x l-step-xy"
+				style="--factor: 2; --row: -2; --col: 2;"></div>
+
+			<div data-augmented-ui="tl-round-x r-rect br-round b-scoop-x bl-scoop"
+				style="--factor: 3; --row: -1; --col: -2;"></div>
+			<div class="inner-tile" data-augmented-ui="tr-2-scoop-y br-clip-inset bl-scoop-inset tl-clip"
+				style="--factor: 4; --row: -1; --col: -1;"></div>
+			<div class="inner-tile" data-augmented-ui="tl-round tr-rect-x br-2-clip-y bl-clip"
+				style="--factor: 5; --row: -1; --col: 0;"></div>
+			<div class="inner-tile" data-augmented-ui="tr-clip-x br-2-scoop-x l-clip-xy"
+				style="--factor: 4; --row: -1; --col: 1;"></div>
+			<div data-augmented-ui="tr-2-round b-clip-xy bl-clip-inset l-rect"
+				style="--factor: 3; --row: -1; --col: 2;">
+			</div>
+
+			<div data-augmented-ui="tr-2-round-xy br-round-inset bl-round l-rect-y"
+				style="--factor: 4; --row: 0; --col: -2;"></div>
+			<div class="inner-tile" data-augmented-ui="tl-rect-y t-rect tr-rect b-clip-y"
+				style="--factor: 5; --row: 0; --col: -1;"></div>
+			<div id="central-tile" class="inner-tile"
+				data-augmented-ui="tl-2-clip-x t-scoop-x tr-2-clip-x r-rect-y br-2-clip-x b-scoop-x bl-2-clip-x l-rect-y"
+				style="--factor: 6; --row: 0; --col: 0;">
+				<button id="back-btn" class="hidden" data-augmented-ui="tl-clip br-clip both">Back</button>
+				<div id="central-content"></div>
+			</div>
+			<div class="inner-tile" data-augmented-ui="tr-2-clip-xy br-rect bl-clip-inset l-clip"
+				style="--factor: 5; --row: 0; --col: 1;"></div>
+			<div data-augmented-ui="tr-2-rect-xy br-2-rect-xy l-clip-xy" style="--factor: 4; --row: 0; --col: 2;"></div>
+
+			<div data-augmented-ui="tl-round tr-round-x l-scoop-xy br-round-x bl-round"
+				style="--factor: 3; --row: 1; --col: -2; --aug-br: calc(1.75rem * var(--exploded))"></div>
+			<div class="inner-tile" data-augmented-ui="tl-clip br-2-clip-xy" style="--factor: 4; --row: 1; --col: -1;">
+			</div>
+			<div class="inner-tile" data-augmented-ui="tl-clip t-clip-x tr-clip br-clip b-clip-x bl-clip"
+				style="--factor: 5; --row: 1; --col: 0;"></div>
+			<div class="inner-tile" data-augmented-ui="tl-2-scoop-xy br-2-scoop-xy"
+				style="--factor: 4; --row: 1; --col: 1;"></div>
+			<div data-augmented-ui="tl-round-inset r-round-y bl-clip-inset" style="--factor: 3; --row: 1; --col: 2;">
+			</div>
+
+			<div data-augmented-ui="tr-clip bl-clip tl-round br-round"
+				style="--factor: 2; --row: 2; --col: -2; --aug-tr: calc(3rem * var(--exploded)); --aug-bl: calc(3rem * var(--exploded)); --aug-tl: calc(0.33rem * var(--exploded)); --aug-br: calc(0.33rem * var(--exploded));">
+			</div>
+			<div data-augmented-ui="tl-2-clip-x br-2-clip-x" style="--factor: 3; --row: 2; --col: -1;"></div>
+			<div data-augmented-ui="tl-rect tr-rect bl-clip br-clip" style="--factor: 4; --row: 2; --col: 0;"
+				id="get-augmented">
+				<span class="pres-text fade-in"><br>↓</span>
+			</div>
+			<div data-augmented-ui="tr-2-clip-x bl-2-clip-x" style="--factor: 3; --row: 2; --col: 1;"></div>
+			<div data-augmented-ui="tl-clip br-clip tr-round bl-round"
+				style="--factor: 2; --row: 2; --col: 2; --aug-tl: calc(3rem * var(--exploded)); --aug-br: calc(3rem * var(--exploded)); --aug-tr: calc(0.33rem * var(--exploded)); --aug-bl: calc(0.33rem * var(--exploded));">
+			</div>
+		</div>
+	</div>
+	<div id="terminal-frame" data-augmented-ui="">
+		<div id="terminal">
+			/ $<span id="term-cmd">&nbsp;&nbsp;portfolio --gui start</span><br>
+			&nbsp;&nbsp;Portfolio GUI starting -&gt;<br>
+			&nbsp;&nbsp;...<br>
+			&nbsp;&nbsp;Loading modules...<br>
+			&nbsp;&nbsp;Loading assets...<br>
+			&nbsp;&nbsp;Init...<br>
+			&nbsp;&nbsp;...<br>
+			&nbsp;&nbsp;Done.<br>
+			&nbsp;&nbsp;...<br>
+			&nbsp;&nbsp;!<br>
+		</div>
+	</div>
+	<div class="crt-overlay">
+		<div class="scanline"></div>
+	</div>
+</body>
+
+</html>
