@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => ({
 		IS_DEV: JSON.stringify(mode !== "production"),
 	},
 	build: {
+
 		sourcemap: true,
 	},
 }))
