@@ -20,7 +20,6 @@ import {
 	runViewTransition,
 	mountTileToBody,
 	mountTileToGrid,
-	crtGradient,
 } from "../anims"
 import { getTileData, renderContent, wrap3dEl, centralTileEl } from "../views"
 import { fetchConfig } from "../config"
