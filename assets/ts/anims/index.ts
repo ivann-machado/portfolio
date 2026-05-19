@@ -15,7 +15,7 @@ import {
 	terminalEl,
 	termCmdEl,
 	crtOverlay
-} from "../views"
+} from "../dom/elements"
 
 // --- State ---
 

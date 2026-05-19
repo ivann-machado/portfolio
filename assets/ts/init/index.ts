@@ -10,63 +10,23 @@ import "css-media-vars"
 import "augmented-ui/augmented-ui.min.css"
 import "../../css/main.css"
 import {
-	openContent,
 	closeContent,
 	toggleExplosion,
 	togglePartialExplosion,
 	toggleTerminal,
 	isTerminalOpen,
 	getGridMode,
-	moveSelection,
-	triggerSelected,
-	setGridShape,
-	selectTile,
+	setGridShape
 } from "../controllers"
 import { explosion, partialExplosion, crtGradient } from "../anims"
-import { wrap3dEl, centralTileEl, backBtnEl, terminalEl } from "../views"
+import { terminalEl } from "../dom/elements"
 import { registerHandlers, initKeybinds } from "../keybinds"
+import { registerListeners } from "./listeners"
 
 // --- Event Listeners ---
-
-wrap3dEl.addEventListener("click", (e) => {
-	const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
-	if (tile && !centralTileEl.classList.contains("fullscreen")) {
-		// Enforcement: Only "inner-tile" is clickable in partial-explosion mode
-		const mode = getGridMode()
-		if (mode === "collapsed") {
-			return
-		}
-		if (mode === "partial-explosion" && !tile.classList.contains("inner-tile")) {
-			return
-		}
-		openContent(tile)
-	}
-})
-
-backBtnEl.addEventListener("click", () => {
-	closeContent()
-})
-
-// Keyboard Navigation
-window.addEventListener("keydown", (e) => {
-	if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-		e.preventDefault()
-		moveSelection(e.key as any)
-	}
-	if (e.key === "Enter") {
-		e.preventDefault()
-		triggerSelected()
-	}
-})
-
-// Mouse Hover Selection
-wrap3dEl.addEventListener("mouseover", (e) => {
-	const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
-	selectTile(tile)
-})
+registerListeners()
 
 // --- Keybind Registration ---
-
 registerHandlers({
 	closeContent,
 	// Dev handlers

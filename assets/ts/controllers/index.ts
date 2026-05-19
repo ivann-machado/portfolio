@@ -21,7 +21,8 @@ import {
 	mountTileToBody,
 	mountTileToGrid,
 } from "../anims"
-import { getTileData, renderContent, wrap3dEl, centralTileEl } from "../views"
+import { centralTileEl, wrap3dEl } from "../dom/elements"
+import { getTileData, renderContent } from "../views"
 import { fetchConfig } from "../config"
 
 // --- Animation Timing Constants ---
@@ -39,7 +40,6 @@ export function toggleTerminal(): void {
 export function toggleExplosion(shape: ExplosionShape = "mountain"): void {
 	const currentMode = getGridMode()
 	explosion(currentMode !== "explosion", shape)
-	// Clear selection when exploding/collapsing to avoid visual artifacts
 	clearSelection()
 }
 
@@ -75,7 +75,6 @@ export async function openContent(tile: HTMLElement): Promise<void> {
 
 	isAnimating = true
 
-	// Clear selection so the pulsate animation doesn't play during fullscreen transition
 	clearSelection()
 
 	// 1. Trigger grid collapse animation
