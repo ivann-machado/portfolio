@@ -19,7 +19,8 @@ import {
 	exitFullscreen,
 	runViewTransition,
 	mountTileToBody,
-	mountTileToGrid
+	mountTileToGrid,
+	crtGradient,
 } from "../anims"
 import { getTileData, renderContent, wrap3dEl, centralTileEl } from "../views"
 import { fetchConfig } from "../config"
@@ -48,6 +49,7 @@ export function togglePartialExplosion(shape: ExplosionShape = "mountain"): void
 	partialExplosion(currentMode !== "partial-explosion", shape)
 	clearSelection()
 }
+
 
 export function setGridShape(shape: ExplosionShape): void {
 	const mode = getGridMode()
@@ -147,6 +149,29 @@ export function clearSelection(): void {
 	}
 }
 
+export function selectTile(tile: HTMLElement | null, scroll = false): void {
+	if (centralTileEl.classList.contains("fullscreen")) return
+
+	const mode = getGridMode()
+	if (mode === "collapsed") return
+
+	if (selectedTile) {
+		selectedTile.classList.remove("selected")
+	}
+
+	selectedTile = tile
+	if (selectedTile) {
+		if (mode === "partial-explosion" && !selectedTile.classList.contains("inner-tile")) {
+			selectedTile = null
+			return
+		}
+		selectedTile.classList.add("selected")
+		if (scroll) {
+			selectedTile.scrollIntoView({ behavior: "smooth", block: "center" })
+		}
+	}
+}
+
 export function moveSelection(direction: "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"): void {
 	if (centralTileEl.classList.contains("fullscreen")) return
 
@@ -154,17 +179,16 @@ export function moveSelection(direction: "ArrowUp" | "ArrowDown" | "ArrowLeft" |
 	if (mode === "collapsed") return
 
 	const tiles = Array.from(wrap3dEl.querySelectorAll<HTMLElement>("[data-augmented-ui]"))
-	
+
 	// Filter tiles based on current grid mode
-	const availableTiles = mode === "partial-explosion" 
+	const availableTiles = mode === "partial-explosion"
 		? tiles.filter(t => t.classList.contains("inner-tile"))
 		: tiles
 
 	if (availableTiles.length === 0) return
 
 	if (!selectedTile || !availableTiles.includes(selectedTile)) {
-		selectedTile = availableTiles[0]
-		selectedTile.classList.add("selected")
+		selectTile(availableTiles[0], true)
 		return
 	}
 
@@ -187,10 +211,7 @@ export function moveSelection(direction: "ArrowUp" | "ArrowDown" | "ArrowLeft" |
 	})
 
 	if (nextTile) {
-		selectedTile.classList.remove("selected")
-		selectedTile = nextTile
-		selectedTile.classList.add("selected")
-		selectedTile.scrollIntoView({ behavior: "smooth", block: "center" })
+		selectTile(nextTile, true)
 	}
 }
 

@@ -13,13 +13,21 @@ import {
 	mainFrameEl,
 	terminalFrameEl,
 	terminalEl,
-	termCmdEl
+	termCmdEl,
+	crtOverlay
 } from "../views"
 
 // --- State ---
 
 let terminalOpen = false
 let currentGridMode: GridMode = "collapsed"
+
+// --- CRT Animations ---
+
+export function crtGradient(): void {
+	// crt before gradient color change
+	crtOverlay.style.setProperty("--green-gradient-value", "0.02")
+}
 
 // --- Terminal Animations ---
 

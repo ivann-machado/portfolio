@@ -17,6 +17,7 @@ export const devKeybinds: KeybindMap = {
 	toggleExplosion: "e",
 	togglePartialExplosion: "p",
 	toggleTerminal: "t",
+	crtGradient: "g",
 	debugBowl: "b",
 	debugMountain: "m",
 }

@@ -7,10 +7,10 @@
     height: 100vh;
     width: 100dvw;
     height: 100dvh;
+    --green-gradient-value: 0.3;
     background: radial-gradient(circle, transparent 65%, rgba(0, 0, 0, 0.25) 100%);
     pointer-events: none;
     z-index: 2147483647 !important;
-    transform: translateZ(99999px);
     overflow: hidden;
 }
 
@@ -22,10 +22,11 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    background:
+        linear-gradient(rgba(255, 0, 0, 0.05), rgba(0, 255, 0, var(--green-gradient-value)), rgba(0, 0, 255, 0.05)),
+        linear-gradient(90deg, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
     z-index: 2;
-    background-size: 100% 2px, 3px 100%;
+    background-size: 100% 5px, 1px 100%;
     pointer-events: none;
 }
 
@@ -49,9 +50,9 @@
     height: 3px;
     z-index: 3;
     background: rgba(18, 16, 16, 0.1);
-    opacity: 0.75;
+    opacity: 0.80;
     position: absolute;
     top: 0;
     left: 0;
-    animation: crt-scanline 6s linear infinite;
+    animation: crt-scanline 2s linear infinite;
 }

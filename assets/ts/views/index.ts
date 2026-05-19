@@ -15,6 +15,8 @@ export const terminalFrameEl = document.querySelector("#terminal-frame") as HTML
 export const terminalEl = document.querySelector("#terminal") as HTMLElement
 export const termCmdEl = document.querySelector("#term-cmd") as HTMLElement
 
+export const crtOverlay = document.querySelector(".crt-overlay") as HTMLElement
+
 export const centralTileEl = document.querySelector("#central-tile") as HTMLElement
 export const centralContentEl = document.querySelector("#central-content") as HTMLElement
 export const backBtnEl = document.querySelector("#back-btn") as HTMLButtonElement

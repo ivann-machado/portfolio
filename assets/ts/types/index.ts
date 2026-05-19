@@ -11,11 +11,12 @@ export type GridMode = "collapsed" | "explosion" | "partial-explosion"
 // --- Keybinds ---
 
 export type KeybindAction =
+	| "closeContent"
+	// Dev-only
+	| "crtGradient"
 	| "toggleExplosion"
 	| "togglePartialExplosion"
 	| "toggleTerminal"
-	| "closeContent"
-	// Dev-only
 	| "debugBowl"
 	| "debugMountain"
 

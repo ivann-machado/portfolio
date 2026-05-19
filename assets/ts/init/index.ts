@@ -20,8 +20,9 @@ import {
 	moveSelection,
 	triggerSelected,
 	setGridShape,
+	selectTile,
 } from "../controllers"
-import { explosion, partialExplosion } from "../anims"
+import { explosion, partialExplosion, crtGradient } from "../anims"
 import { wrap3dEl, centralTileEl, backBtnEl, terminalEl } from "../views"
 import { registerHandlers, initKeybinds } from "../keybinds"
 
@@ -58,25 +59,32 @@ window.addEventListener("keydown", (e) => {
 	}
 })
 
+// Mouse Hover Selection
+wrap3dEl.addEventListener("mouseover", (e) => {
+	const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
+	selectTile(tile)
+})
+
 // --- Keybind Registration ---
 
 registerHandlers({
+	closeContent,
+	// Dev handlers
+	crtGradient,
 	toggleExplosion,
 	togglePartialExplosion,
 	toggleTerminal,
-	closeContent,
-	// Dev handlers
 	debugBowl: () => setGridShape("bowl"),
 	debugMountain: () => setGridShape("mountain"),
 })
 
-// --- Launch Sequence ---
+// ###################################################
+// ################# Launch Sequence #################
+// ###################################################
+
 declare const IS_DEV: boolean
 initKeybinds(IS_DEV)
 toggleTerminal()
-
-// Reveal the page (body starts with display:none in HTML)
-document.body.style.display = ""
 
 // On terminal animation end, close the terminal
 const onTerminalAnimEnd = (e: AnimationEvent) => {
@@ -84,6 +92,7 @@ const onTerminalAnimEnd = (e: AnimationEvent) => {
 		setTimeout(() => {
 			toggleTerminal()
 			terminalEl.removeEventListener("animationend", onTerminalAnimEnd)
+			crtGradient()
 		}, 250)
 	}
 }
