@@ -48,7 +48,7 @@
     --z-step: 100px;
 }
 
-#main.explosion .wrap3d>[data-augmented-ui] {
+#main.explosion .wrap3d>[data-augmented-ui]:not(.selected) {
     animation: floating 8s ease-in-out infinite alternate;
 }
 

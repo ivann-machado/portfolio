@@ -6,3 +6,7 @@
 .notransition {
     transition: none !important;
 }
+
+.pauseanimation * {
+    animation-play-state: paused !important;
+}

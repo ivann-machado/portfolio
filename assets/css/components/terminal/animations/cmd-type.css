@@ -7,3 +7,100 @@
         width: 60%;
     }
 }
+
+/* Shakes text slightly on the X-axis */
+@keyframes text-shake {
+    0% {
+        transform: translate(0px, 0);
+    }
+
+    20% {
+        transform: translate(-1px, 0);
+    }
+
+    40% {
+        transform: translate(1px, 0);
+    }
+
+    60% {
+        transform: translate(-2px, 0);
+    }
+
+    80% {
+        transform: translate(1px, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Creates a digital twitching chromatic aberration effect */
+@keyframes chromatic-split {
+    0% {
+        text-shadow: 1px 0px 0px rgba(255, 0, 0, 0.7), -1px 0px 0px rgba(0, 0, 255, 0.7);
+    }
+
+    50% {
+        text-shadow: -2px 1px 0px rgba(255, 0, 0, 0.8), 2px -1px 0px rgba(0, 255, 255, 0.8);
+    }
+
+    100% {
+        text-shadow: 1px -1px 0px rgba(255, 0, 0, 0.7), -1px 1px 0px rgba(0, 0, 255, 0.7);
+    }
+}
+
+/* Causes binary streams to slightly compress and slide horizontally */
+@keyframes matrix-shift {
+    0% {
+        transform: translateX(-5px) skewX(-10deg);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateX(5px) skewX(10deg);
+        opacity: 0.9;
+    }
+}
+
+/* Aggressive, broken backlight flashing */
+@keyframes flash-decay {
+
+    0%,
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 8px #ffaa00;
+    }
+
+    33% {
+        opacity: 0.2;
+    }
+
+    66% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes screen-tear {
+    0% {
+        transform: skewX(0deg) translateX(0px);
+        clip-path: inset(0 0 0 0);
+    }
+
+    33% {
+        transform: skewX(-15deg) translateX(-8px);
+        /* Slice the top third horizontally */
+        clip-path: inset(0 0 60% 0);
+    }
+
+    66% {
+        transform: skewX(15deg) translateX(8px);
+        /* Slice the bottom third horizontally */
+        clip-path: inset(60% 0 0 0);
+    }
+
+    100% {
+        transform: skewX(0deg) translateX(-2px);
+        clip-path: inset(20% 0 30% 0);
+    }
+}

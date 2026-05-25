@@ -17,6 +17,7 @@ export type KeybindAction =
 	| "toggleExplosion"
 	| "togglePartialExplosion"
 	| "toggleTerminal"
+	| "toggleTransition"
 	| "debugBowl"
 	| "debugMountain"
 

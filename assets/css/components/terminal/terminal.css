@@ -6,7 +6,7 @@
     overflow: hidden;
     width: 0%;
     height: 0%;
-    transition: width 200ms ease-in, height 200ms ease-in;
+    /* transition: width 200ms ease-in, height 200ms ease-in; */
     --aug-inlay: initial;
     --aug-inlay-all: 0px;
     --aug-inlay-bg: var(--c5);
@@ -44,7 +44,7 @@
 }
 
 #terminal.open {
-    animation: terminal-type 5.5s step-end forwards;
+    animation: terminal-type 2.5s step-end forwards;
     transition: none;
 }
 
@@ -61,4 +61,60 @@
 #term-cmd.open {
     animation: cmd-type 750ms step-end forwards;
     transition: none;
+}
+
+/* 1. Turning the standard text blocks an ominous, unstable digital amber/red */
+.corrupt-trigger {
+    color: #ff3333 !important;
+    text-shadow: 0 0 4px rgba(255, 51, 51, 0.6);
+    animation: text-shake 0.3s infinite linear;
+}
+
+/* 2. Make the loading blocks flicker and breathe like broken code */
+.data-blocks {
+    color: #ffaa00;
+    animation: flash-decay 1.5s infinite steps(4);
+}
+
+/* 3. The raw binary text leaking outside normal text containers */
+.binary-leak {
+    font-size: 0.75rem;
+    letter-spacing: -1px;
+    color: #33ff33;
+    opacity: 0.7;
+    display: inline-block;
+    white-space: nowrap;
+    animation: matrix-shift 0.8s infinite alternate ease-in-out;
+}
+
+/* 4. The terminal crash row text actively tearing itself apart */
+.text-melt {
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff3333, #ffaa00, #ff3333);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: chromatic-split 0.2s infinite;
+}
+
+/* 5. The absolute system hijack banner pulsing rapidly */
+.system-hijack {
+    color: #fff !important;
+    background: rgba(255, 0, 0, 0.3);
+    padding: 0 4px;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+}
+
+.spam-container {
+    color: #ff2222 !important;
+    line-height: 1.15rem;
+    font-size: 0.85rem;
+    background: rgba(255, 0, 0, 0.15);
+    border-left: 3px solid #ff0000;
+    padding: 4px 0;
+    margin-top: 5px;
+    overflow: hidden;
+
+    /* Extreme shaking and chromatic tearing */
+    animation: screen-tear 0.15s infinite alternate steps(2), chromatic-split 0.1s infinite;
 }

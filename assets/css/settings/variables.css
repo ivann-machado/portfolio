@@ -10,5 +10,22 @@
     --c3: #2c2c2a;
     --c4: #312d18;
     --c5: #040404;
-    --yellow: #f0d200; /* Used in selection state */
+    --yellow: #f0d200;
+}
+
+html {
+    --xs-fs: var(--media-xs) 1.35vw;
+    --sm-fs: var(--media-sm) 1.35vw;
+    --md-fs: var(--media-md) 12px;
+}
+
+body {
+    --sm-width: var(--media-lte-sm) 100vw;
+    --md-width: var(--media-md) 900px;
+    --width: var(--sm-width, var(--md-width, 1200px));
+    --height: calc(var(--width) / 56 * 27);
+    --mobile-h: var(--media-lte-sm) 100%;
+    --final-h: var(--do-transform) var(--mobile-h);
+    --bgoffsetx: var(--media-lte-sm) left;
+    --do-transform: initial;
 }

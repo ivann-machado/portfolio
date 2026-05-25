@@ -9,7 +9,8 @@ import {
 import {
     centralTileEl,
     backBtnEl,
-    wrap3dEl
+    wrap3dEl,
+    terminalEl
 } from "../dom/elements"
 
 export function registerListeners(): void {
@@ -49,3 +50,13 @@ export function registerListeners(): void {
         selectTile(tile)
     })
 }
+
+export const terminalAnimEnd = new Promise<void>((resolve) => {
+    const checkAnim = (e: AnimationEvent) => {
+        if (e.target === terminalEl) {
+            terminalEl.removeEventListener("animationend", checkAnim);
+            resolve(); // Resolving unblocks the sequential line execution below
+        }
+    };
+    terminalEl.addEventListener("animationend", checkAnim);
+});

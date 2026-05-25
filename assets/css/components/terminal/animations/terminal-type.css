@@ -1,25 +1,40 @@
 @keyframes terminal-type {
-    0% {
+
+    0%,
+    15% {
         height: 0rem;
     }
 
-    16.4% {
-        height: 0rem;
-    }
-
-    21.6% {
+    /* Line 1 */
+    16%,
+    30% {
         height: var(--term-lh, 1rem);
     }
 
-    58.6% {
+    /* Line 2 */
+    31%,
+    45% {
+        height: calc(2 * var(--term-lh, 1rem));
+    }
+
+    /* Line 3 */
+    46%,
+    55% {
         height: calc(3 * var(--term-lh, 1rem));
     }
 
-    64.0% {
+    /* Lines 4, 5, 6, 7 flash together */
+    56%,
+    75% {
         height: calc(7 * var(--term-lh, 1rem));
     }
 
+    /* --- THE CRASH SPAM DETONATION ---
+       At 76%, the terminal container suddenly stretches open completely.
+       The entire spam block floods the viewport, shaking violently, 
+       until the timeline hits 100% and JavaScript overrides it. */
+    90%,
     100% {
-        height: calc(11 * var(--term-lh, 1rem));
+        height: calc(15 * var(--term-lh, 1rem));
     }
 }

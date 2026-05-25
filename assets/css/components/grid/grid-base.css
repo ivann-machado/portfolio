@@ -78,16 +78,16 @@
 }
 
 .wrap3d>[data-augmented-ui].selected {
-    animation: pulsate 1.5s infinite ease-in-out !important;
-    z-index: 1000 !important;
+    animation: pulsate 1.5s infinite ease-in-out;
+    z-index: 1000;
     outline: 2px solid var(--cyan);
     outline-offset: 4px;
     pointer-events: auto;
 }
 
 .inner-tile.selected {
-    animation: pulsate-inner 1.5s infinite ease-in-out !important;
-    outline-color: var(--yellow) !important;
+    animation: pulsate-inner 1.5s infinite ease-in-out;
+    outline-color: var(--yellow);
     --aug-border-all: 2px;
     --aug-border-bg: var(--yellow);
 }

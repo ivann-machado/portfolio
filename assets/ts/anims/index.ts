@@ -7,6 +7,7 @@
 
 import type { TransitionCallback, ViewTransitionLike, ExplosionShape, GridMode } from "../types"
 import {
+	screenWrap,
 	centralTileEl,
 	backBtnEl,
 	wrap3dEl,
@@ -25,7 +26,7 @@ let currentGridMode: GridMode = "collapsed"
 // --- CRT Animations ---
 
 export function crtGradient(): void {
-	// crt before gradient color change
+	console.log("crtGradient", crtOverlay.style.getPropertyValue("--green-gradient-value"))
 	crtOverlay.style.setProperty("--green-gradient-value", "0.02")
 }
 
@@ -111,7 +112,7 @@ export function runViewTransition(callback: TransitionCallback): ViewTransitionL
  * Moves the central tile into the document body for fullscreen display.
  */
 export function mountTileToBody(): void {
-	document.body.appendChild(centralTileEl)
+	screenWrap.appendChild(centralTileEl)
 }
 
 /**

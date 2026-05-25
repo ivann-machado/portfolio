@@ -14,15 +14,18 @@ import {
 	toggleExplosion,
 	togglePartialExplosion,
 	toggleTerminal,
-	isTerminalOpen,
-	getGridMode,
 	setGridShape
 } from "../controllers"
-import { explosion, partialExplosion, crtGradient } from "../anims"
-import { terminalEl } from "../dom/elements"
+import { crtGradient } from "../anims"
 import { registerHandlers, initKeybinds } from "../keybinds"
-import { registerListeners } from "./listeners"
+import { registerListeners, terminalAnimEnd } from "./listeners"
+import { sleep } from "../utils"
 
+import { toggleTransition, startTransition, stopTransition } from "../anims/transition"
+
+if (IS_DEV) {
+	import("../dev")
+}
 // --- Event Listeners ---
 registerListeners()
 
@@ -34,6 +37,7 @@ registerHandlers({
 	toggleExplosion,
 	togglePartialExplosion,
 	toggleTerminal,
+	toggleTransition,
 	debugBowl: () => setGridShape("bowl"),
 	debugMountain: () => setGridShape("mountain"),
 })
@@ -46,38 +50,12 @@ declare const IS_DEV: boolean
 initKeybinds(IS_DEV)
 toggleTerminal()
 
-// On terminal animation end, close the terminal
-const onTerminalAnimEnd = (e: AnimationEvent) => {
-	if (e.target === terminalEl) {
-		setTimeout(() => {
-			toggleTerminal()
-			terminalEl.removeEventListener("animationend", onTerminalAnimEnd)
-			crtGradient()
-		}, 250)
-	}
-}
-terminalEl.addEventListener("animationend", onTerminalAnimEnd)
+await terminalAnimEnd
 
-// Expose public API globally in dev only.
-// declare global is top-level only (TypeScript requirement) — it emits no JS.
-declare global {
-	interface Window {
-		toggleTerminal: typeof toggleTerminal
-		toggleExplosion: typeof toggleExplosion
-		togglePartialExplosion: typeof togglePartialExplosion
-		explosion: typeof explosion
-		partialExplosion: typeof partialExplosion
-		isTerminalOpen: typeof isTerminalOpen
-		getGridMode: typeof getGridMode
-	}
-}
+startTransition()
 
-if (IS_DEV) {
-	window.toggleTerminal = toggleTerminal
-	window.toggleExplosion = toggleExplosion
-	window.togglePartialExplosion = togglePartialExplosion
-	window.explosion = explosion
-	window.partialExplosion = partialExplosion
-	window.isTerminalOpen = isTerminalOpen
-	window.getGridMode = getGridMode
-}
+await sleep(250)
+
+toggleTerminal()
+crtGradient()
+stopTransition()
