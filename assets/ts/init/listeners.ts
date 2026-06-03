@@ -1,38 +1,31 @@
 import {
     moveSelection,
-    selectTile,
+    hoverTile,
+    unhoverTile,
     triggerSelected,
     openContent,
     closeContent,
-    getGridMode,
 } from "../controllers"
 import {
-    centralTileEl,
     backBtnEl,
     wrap3dEl,
     terminalEl
 } from "../dom/elements"
 
 export function registerListeners(): void {
+
+    // --- Tile Click ---
     wrap3dEl.addEventListener("click", (e: MouseEvent) => {
         const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
-        if (tile && !centralTileEl.classList.contains("fullscreen")) {
-            const mode = getGridMode()
-            if (mode === "collapsed") {
-                return
-            }
-            if (mode === "partial-explosion" && !tile.classList.contains("inner-tile")) {
-                return
-            }
-            openContent(tile)
-        }
+        if (tile) openContent(tile)
     })
 
+    // --- Back Button ---
     backBtnEl.addEventListener("click", () => {
         closeContent()
     })
 
-    // Keyboard Navigation
+    // --- Keyboard Navigation ---
     window.addEventListener("keydown", (e: KeyboardEvent) => {
         if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
             e.preventDefault()
@@ -44,19 +37,24 @@ export function registerListeners(): void {
         }
     })
 
-    // Mouse Hover Selection
+    // --- Mouse Hover Selection ---
     wrap3dEl.addEventListener("mouseover", (e: MouseEvent) => {
         const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
-        selectTile(tile)
+        hoverTile(tile)
+    })
+
+    wrap3dEl.addEventListener("mouseout", (e: MouseEvent) => {
+        const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-augmented-ui]")
+        unhoverTile(tile)
     })
 }
 
 export const terminalAnimEnd = new Promise<void>((resolve) => {
     const checkAnim = (e: AnimationEvent) => {
         if (e.target === terminalEl) {
-            terminalEl.removeEventListener("animationend", checkAnim);
-            resolve(); // Resolving unblocks the sequential line execution below
+            terminalEl.removeEventListener("animationend", checkAnim)
+            resolve()
         }
-    };
-    terminalEl.addEventListener("animationend", checkAnim);
-});
+    }
+    terminalEl.addEventListener("animationend", checkAnim)
+})

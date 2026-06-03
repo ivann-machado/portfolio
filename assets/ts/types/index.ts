@@ -41,6 +41,50 @@ export interface WordPressPost {
 	title: { rendered: string }
 	excerpt: { rendered: string }
 	content: { rendered: string }
+	date: string
+	link: string
+	featured_media: number
+}
+
+// --- Tile Registry ---
+
+/** Positional key used to address a tile in the grid, e.g. "2:3" */
+export type TileKey = `${number}:${number}`
+
+/**
+ * Determines what happens when a tile is opened:
+ * - "post" → expands the central tile into fullscreen content view
+ * - "list" → re-renders the grid with a new set of tiles from the linked URL
+ */
+export type TileActionType = "post" | "list"
+
+/** What is displayed inside the tile and in the fullscreen view */
+export interface TileContent {
+	title: string
+	/** HTML string or plain text rendered as the tile body */
+	body: string
+}
+
+/** Where opening the tile navigates, and how */
+export interface TileLink {
+	url: string
+	type: TileActionType
+}
+
+/** Full data record for a single grid tile */
+export interface TileRecord {
+	/** Live DOM reference to the tile element */
+	el: HTMLElement
+	/** Grid row (-2 to 2) */
+	row: number
+	/** Grid column (-2 to 2) */
+	col: number
+	/** Display content — title for the label, body for fullscreen view */
+	content: TileContent
+	/** Navigation target */
+	link: TileLink
+	/** Raw WordPress post — present only for WP-sourced tiles */
+	wpPost?: WordPressPost
 }
 
 // --- Animations ---
@@ -53,14 +97,12 @@ export interface ViewTransitionLike {
 
 // --- Fetch ---
 
-export type FetchStrategy = "json" | "wordpress"
-
 export interface FetchConfig {
-	strategy: FetchStrategy
+	/** URL to the landing page JSON config (e.g. "/data/landing.json") */
+	landingUrl: string
 	/**
-	 * For "json": path or URL to the JSON data file (e.g. "/data/tiles.json")
-	 * For "wordpress": base URL of the WordPress site (e.g. "https://example.com")
-	 *   — REST API endpoints will be derived automatically.
+	 * Base URL of the WordPress site (e.g. "https://example.com/wp").
+	 * Any tile link URL starting with this prefix is treated as a WP REST API call.
 	 */
-	apiUrl: string
+	wordpressUrl: string
 }

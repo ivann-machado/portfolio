@@ -22,6 +22,8 @@ import { registerListeners, terminalAnimEnd } from "./listeners"
 import { sleep } from "../utils"
 
 import { toggleTransition, startTransition, stopTransition } from "../anims/transition"
+import { loadTileList } from "../data"
+import { fetchConfig } from "../config"
 
 if (IS_DEV) {
 	import("../dev")
@@ -59,3 +61,6 @@ await sleep(250)
 toggleTerminal()
 crtGradient()
 stopTransition()
+
+await loadTileList(fetchConfig.landingUrl)
+toggleExplosion()

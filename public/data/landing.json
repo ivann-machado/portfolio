@@ -1,0 +1,76 @@
+{
+    "tiles": [
+        {
+            "row": -1,
+            "col": -1,
+            "content": {
+                "title": "À Propos",
+                "body": "<p>Lorem ipsum.</p>"
+            },
+            "link": {
+                "url": "#about",
+                "type": "post"
+            }
+        },
+        {
+            "row": -1,
+            "col": 0,
+            "content": {
+                "title": "Projets",
+                "body": ""
+            },
+            "link": {
+                "url": "https://imachado.alwaysdata.net/wp/wp-json/wp/v2/posts?categories=2",
+                "type": "list"
+            }
+        },
+        {
+            "row": -1,
+            "col": 1,
+            "content": {
+                "title": "Compétences",
+                "body": "<p>Lorem Ipsum.</p>"
+            },
+            "link": {
+                "url": "#skills",
+                "type": "post"
+            }
+        },
+        {
+            "row": 0,
+            "col": -1,
+            "content": {
+                "title": "Expérience",
+                "body": "<p>Lorem Ipsum.</p>"
+            },
+            "link": {
+                "url": "#experience",
+                "type": "post"
+            }
+        },
+        {
+            "row": 0,
+            "col": 1,
+            "content": {
+                "title": "Contact",
+                "body": "<p>Lorem ipsum.</p>"
+            },
+            "link": {
+                "url": "#contact",
+                "type": "post"
+            }
+        },
+        {
+            "row": 0,
+            "col": 0,
+            "content": {
+                "title": "Stack",
+                "body": "<p>Lorem Ipsum.</p>"
+            },
+            "link": {
+                "url": "#stack",
+                "type": "post"
+            }
+        }
+    ]
+}

@@ -2,10 +2,10 @@ import {
     toggleTerminal,
     toggleExplosion,
     togglePartialExplosion,
-    isTerminalOpen,
-    getGridMode
 } from "../controllers"
-import { explosion, partialExplosion } from "../anims";
+import { getTerminalOpenState, getGridMode } from "../store"
+import { explosion, partialExplosion } from "../anims"
+import * as store from "../store"
 
 
 // Expose public API globally.
@@ -16,12 +16,13 @@ declare global {
         togglePartialExplosion: typeof togglePartialExplosion
         explosion: typeof explosion
         partialExplosion: typeof partialExplosion
-        isTerminalOpen: typeof isTerminalOpen
+        getTerminalOpenState: typeof getTerminalOpenState
         getGridMode: typeof getGridMode
         glitchTransition: typeof glitchTransition
         toggleTransition: typeof toggleTransition
         startTransition: typeof startTransition
         stopTransition: typeof stopTransition
+        store: typeof store
     }
 }
 
@@ -30,8 +31,9 @@ window.toggleExplosion = toggleExplosion
 window.togglePartialExplosion = togglePartialExplosion
 window.explosion = explosion
 window.partialExplosion = partialExplosion
-window.isTerminalOpen = isTerminalOpen
+window.getTerminalOpenState = getTerminalOpenState
 window.getGridMode = getGridMode
+window.store = store
 
 import { glitchTransition, toggleTransition, startTransition, stopTransition } from "../anims/transition"
 window.glitchTransition = glitchTransition

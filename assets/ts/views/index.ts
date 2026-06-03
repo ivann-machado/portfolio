@@ -1,44 +1,75 @@
 /**
  * views/index.ts
  * Data rendering functions.
- * Provides two strategy-aware renderers: one for JSON data, one for WordPress API data.
- * The unified renderContent() picks the right one based on the active fetch strategy.
+ *
+ * Two renderers: one for local JSON content, one for WordPress REST API posts.
+ * The unified renderContent() picks the right one by inspecting the data shape
+ * (duck typing on title.rendered vs title: string), so no global strategy flag
+ * is needed — each piece of data carries its own identity.
  */
 
-import type { TileData, WordPressPost } from "../types"
-import { fetchConfig } from "../config"
+import type { TileData, TileContent, WordPressPost } from "../types"
 import { centralContentEl } from "../dom/elements"
 
-// --- JSON Renderer ---
+// --- Type guard ---
+
+function isWordPressPost(data: TileContent | WordPressPost): data is WordPressPost {
+	return typeof (data as WordPressPost).title === "object"
+}
+
+// --- JSON / local-content Renderer ---
 
 /**
- * Renders tile content sourced from the JSON API or DOM data attributes.
+ * Renders tile content sourced from the local JSON config.
  */
 export function renderJsonContent(data: TileData): void {
-	centralContentEl.innerHTML = `<h2>${data.title}</h2><p>${data.body}</p>`
+	centralContentEl.innerHTML = `
+		<article class="project-post project-post--local">
+			<header class="project-post__header">
+				<h1 class="project-post__title">${data.title}</h1>
+			</header>
+			<div class="project-post__body">${data.body}</div>
+		</article>
+	`
 }
 
 // --- WordPress Renderer ---
 
 /**
- * Renders tile content sourced from a WordPress REST API post.
+ * Renders a WordPress REST API post into the central content pane.
+ * Formats the publish date in French locale and displays the full
+ * post content (content.rendered), which already contains WP block HTML.
  */
 export function renderWordPressContent(post: WordPressPost): void {
+	const publishedDate = post.date
+		? new Intl.DateTimeFormat("fr-FR", {
+			year: "numeric",
+			month: "short",
+			day: "2-digit",
+		}).format(new Date(post.date))
+		: null
+
 	centralContentEl.innerHTML = `
-		<h2>${post.title.rendered}</h2>
-		<div class="wp-content">${post.content.rendered}</div>
+		<article class="project-post project-post--wordpress" data-post-slug="${post.slug}">
+			<header class="project-post__header">
+				<h1 class="project-post__title">${post.title.rendered}</h1>
+				${publishedDate ? `<span class="project-post__date">${publishedDate}</span>` : ""}
+			</header>
+			<div class="project-post__body wp-content">${post.content.rendered}</div>
+		</article>
 	`
 }
 
 // --- Strategy-Aware Unified Renderer ---
 
 /**
- * Renders content using the renderer that matches the active fetch strategy.
- * Controlled by fetchConfig.strategy in config/fetch.settings.ts.
+ * Renders content using the renderer that matches the data shape.
+ * - WordPressPost (title.rendered object)  → renderWordPressContent
+ * - TileContent   (title: string)          → renderJsonContent
  */
-export function renderContent(data: TileData | WordPressPost): void {
-	if (fetchConfig.strategy === "wordpress") {
-		renderWordPressContent(data as WordPressPost)
+export function renderContent(data: TileContent | WordPressPost): void {
+	if (isWordPressPost(data)) {
+		renderWordPressContent(data)
 	} else {
 		renderJsonContent(data as TileData)
 	}
@@ -48,11 +79,11 @@ export function renderContent(data: TileData | WordPressPost): void {
 
 /**
  * Extracts tile content metadata from a tile element's HTML data attributes.
- * Used as the primary source in JSON mode and as a fallback in WordPress mode.
+ * Used as a fallback when no store record is found.
  */
 export function getTileData(tile: HTMLElement): TileData {
 	return {
 		title: tile.dataset["contentTitle"] ?? tile.dataset["content"] ?? "Project",
-		body: tile.dataset["contentBody"] ?? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+		body: tile.dataset["contentBody"] ?? "",
 	}
 }

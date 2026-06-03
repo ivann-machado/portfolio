@@ -20,6 +20,7 @@
 @import "./components/grid/animations/fade-in.css";
 @import "./components/grid/grid-base.css";
 @import "./components/grid/grid-explosion.css";
+@import "./components/grid/grid-labels.css";
 
 @import "./components/central-tile/central-tile.css";
 @import "./components/back-btn/back-btn.css";

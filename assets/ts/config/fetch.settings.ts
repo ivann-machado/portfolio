@@ -1,17 +1,15 @@
 /**
- * fetch.settings.ts
- * Configuration for data fetching strategy and API endpoint.
+ * config/fetch.settings.ts
+ * Configuration for data fetching strategy and API endpoints.
+ *
+ * - landingUrl: local JSON file that drives the initial grid state
+ * - wordpressUrl: base URL of the WordPress site; any tile link that starts
+ *   with this prefix is automatically treated as a WP REST API call
  */
 
 import type { FetchConfig } from "../types"
 
 export const fetchConfig: FetchConfig = {
-	strategy: "json",
-	apiUrl: "/data/tiles.json",
-
-	// WordPress example:
-	// strategy: "wordpress",
-	// apiUrl: "https://your-wordpress-site.com",
-	// → Posts endpoint: ${apiUrl}/wp-json/wp/v2/posts
-	// → Pages endpoint: ${apiUrl}/wp-json/wp/v2/pages
+	landingUrl: "/data/landing.json",
+	wordpressUrl: "https://imachado.alwaysdata.net/wp",
 }

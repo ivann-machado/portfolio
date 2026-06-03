@@ -1,0 +1,10 @@
+#main.explosion .wrap3d > [data-augmented-ui] .tile-label,
+#main.partial-explosion .wrap3d > .inner-tile .tile-label {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#main.explosion .wrap3d > [data-augmented-ui].tile--home .tile-label,
+#main.partial-explosion .wrap3d > [data-augmented-ui].tile--home .tile-label {
+    color: var(--yellow);
+}

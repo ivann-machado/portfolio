@@ -5,7 +5,7 @@
  * animation-related class changes and state.
  */
 
-import type { TransitionCallback, ViewTransitionLike, ExplosionShape, GridMode } from "../types"
+import type { TransitionCallback, ViewTransitionLike, ExplosionShape } from "../types"
 import {
 	screenWrap,
 	centralTileEl,
@@ -17,40 +17,43 @@ import {
 	termCmdEl,
 	crtOverlay
 } from "../dom/elements"
-
-// --- State ---
-
-let terminalOpen = false
-let currentGridMode: GridMode = "collapsed"
+import {
+	setTerminalOpenState,
+	setGridMode,
+	setGridShape,
+	getGridShape,
+	getSelectedTile
+} from "../store"
 
 // --- CRT Animations ---
 
 export function crtGradient(): void {
-	console.log("crtGradient", crtOverlay.style.getPropertyValue("--green-gradient-value"))
 	crtOverlay.style.setProperty("--green-gradient-value", "0.02")
 }
 
 // --- Terminal Animations ---
 
 export function terminal(bool: boolean): boolean {
-	terminalOpen = bool
-	terminalFrameEl.className = terminalOpen ? "open" : ""
-	terminalEl.className = terminalOpen ? "open" : ""
-	termCmdEl.className = terminalOpen ? "open" : ""
-	return terminalOpen
+	setTerminalOpenState(bool)
+	terminalFrameEl.className = bool ? "open" : ""
+	terminalEl.className = bool ? "open" : ""
+	termCmdEl.className = bool ? "open" : ""
+	return bool
 }
 
-export function isTerminalOpen(): boolean { return terminalOpen }
 
 // --- Grid Animations ---
 
-export function explosion(bool: boolean, shape: ExplosionShape = "mountain"): void {
+export function explosion(bool: boolean, shape: ExplosionShape = getGridShape()): void {
 	mainFrameEl.classList.remove("explosion", "partial-explosion", "bowl", "mountain")
+	//remove selected class from tile if any
+	getSelectedTile()?.classList.remove("selected")
 	if (bool) {
 		mainFrameEl.classList.add("explosion", shape)
-		currentGridMode = "explosion"
+		setGridMode("explosion")
+		setGridShape(shape)
 	} else {
-		currentGridMode = "collapsed"
+		setGridMode("collapsed")
 	}
 }
 
@@ -58,13 +61,13 @@ export function partialExplosion(bool: boolean, shape: ExplosionShape = "mountai
 	mainFrameEl.classList.remove("explosion", "partial-explosion", "bowl", "mountain")
 	if (bool) {
 		mainFrameEl.classList.add("partial-explosion", shape)
-		currentGridMode = "partial-explosion"
+		setGridMode("partial-explosion")
+		setGridShape(shape)
 	} else {
-		currentGridMode = "collapsed"
+		setGridMode("collapsed")
 	}
 }
 
-export function getGridMode(): GridMode { return currentGridMode }
 
 // --- Tile Animations ---
 
