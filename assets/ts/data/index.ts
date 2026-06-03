@@ -59,7 +59,6 @@ export async function loadTileList(url: string): Promise<void> {
 
 	if (isWordPress) {
 		const posts: WordPressPost[] = await res.json()
-		console.log(`[tiles] WP response: ${posts.length} post(s)`)
 		parseWordPressPosts(posts)
 	} else {
 		const config: TileListConfig = await res.json()
