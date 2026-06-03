@@ -101,8 +101,52 @@ export interface FetchConfig {
 	/** URL to the landing page JSON config (e.g. "/data/landing.json") */
 	landingUrl: string
 	/**
-	 * Base URL of the WordPress site (e.g. "https://example.com/wp").
-	 * Any tile link URL starting with this prefix is treated as a WP REST API call.
+	 * Base URL for the WordPress REST API custom posts endpoint
+	 * (e.g. "https://example.com/wp-json/wp/v2/portfolio")
 	 */
 	wordpressUrl: string
 }
+
+// --- Data ---
+
+export interface TileConfig {
+	row: number
+	col: number
+	content: TileContent
+	link: TileLink
+}
+
+export interface TileListConfig {
+	tiles: TileConfig[]
+}
+
+// --- Store ---
+
+export interface AnimState {
+	/** Whether the terminal panel is open */
+	terminalOpen: boolean
+	/** Current grid layout mode */
+	gridMode: GridMode
+	/** Last explosion shape used */
+	gridShape: ExplosionShape
+	/** Whether a tile open/close transition is in progress */
+	isAnimating: boolean
+	/** The currently keyboard/mouse-selected tile DOM element, or null */
+	selectedTile: HTMLElement | null
+	/** The positional key of the currently selected tile in the registry, or null */
+	selectedKey: TileKey | null
+	/** Whether the CRT glitch transition canvas loop is running */
+	transitionLoopActive: boolean
+	/** Whether the glitch transition is mid-frame (entry/sustain/exit) */
+	transitionAnimating: boolean
+	/**
+	 * Snapshot of the landing page TileRecords — cached after first load so
+	 * returning to the landing never triggers a network request.
+	 */
+	landingRecords: ReadonlyArray<TileRecord> | null
+}
+
+export type StoreListener<K extends keyof AnimState> = (
+	next: AnimState[K],
+	prev: AnimState[K],
+) => void

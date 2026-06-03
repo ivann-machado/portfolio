@@ -6,35 +6,18 @@
  * getters and write via setters. Subscribers are notified on change.
  */
 
-import type { GridMode, ExplosionShape, TileKey, TileRecord } from "../types"
+import type {
+    ExplosionShape,
+    GridMode,
+    TileKey,
+    TileRecord,
+    AnimState,
+    StoreListener,
+} from "../types"
 
 // ---------------------------------------------------------------------------
 // State shape
 // ---------------------------------------------------------------------------
-
-export interface AnimState {
-    /** Whether the terminal panel is open */
-    terminalOpen: boolean
-    /** Current grid layout mode */
-    gridMode: GridMode
-    /** Last explosion shape used */
-    gridShape: ExplosionShape
-    /** Whether a tile open/close transition is in progress */
-    isAnimating: boolean
-    /** The currently keyboard/mouse-selected tile DOM element, or null */
-    selectedTile: HTMLElement | null
-    /** The positional key of the currently selected tile in the registry, or null */
-    selectedKey: TileKey | null
-    /** Whether the CRT glitch transition canvas loop is running */
-    transitionLoopActive: boolean
-    /** Whether the glitch transition is mid-frame (entry/sustain/exit) */
-    transitionAnimating: boolean
-    /**
-     * Snapshot of the landing page TileRecords — cached after first load so
-     * returning to the landing never triggers a network request.
-     */
-    landingRecords: ReadonlyArray<TileRecord> | null
-}
 
 // ---------------------------------------------------------------------------
 // Initial state
@@ -56,13 +39,8 @@ const state: AnimState = {
 // Subscriber system
 // ---------------------------------------------------------------------------
 
-type Listener<K extends keyof AnimState> = (
-    next: AnimState[K],
-    prev: AnimState[K],
-) => void
-
 // Map of key → set of listeners
-const listeners = new Map<keyof AnimState, Set<Listener<any>>>()
+const listeners = new Map<keyof AnimState, Set<StoreListener<any>>>()
 
 function emit<K extends keyof AnimState>(key: K, next: AnimState[K], prev: AnimState[K]): void {
     listeners.get(key)?.forEach(fn => fn(next, prev))
@@ -86,11 +64,11 @@ export function set<K extends keyof AnimState>(key: K, value: AnimState[K]): voi
 /** Subscribe to changes on a specific state key. Returns an unsubscribe fn. */
 export function subscribe<K extends keyof AnimState>(
     key: K,
-    fn: Listener<K>,
+    listener: StoreListener<K>,
 ): () => void {
     if (!listeners.has(key)) listeners.set(key, new Set())
-    listeners.get(key)!.add(fn)
-    return () => listeners.get(key)?.delete(fn)
+    listeners.get(key)!.add(listener)
+    return () => listeners.get(key)?.delete(listener)
 }
 
 // ---------------------------------------------------------------------------

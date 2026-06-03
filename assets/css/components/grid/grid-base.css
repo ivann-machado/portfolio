@@ -92,22 +92,18 @@
     --aug-border-bg: var(--yellow);
 }
 
-/* Home / back-to-landing tile — yellow styling only active when grid is exploded.
-   In collapsed or fullscreen state it blends with normal tiles. */
-#main.explosion .wrap3d > [data-augmented-ui].tile--home,
-#main.partial-explosion .wrap3d > [data-augmented-ui].tile--home {
+#main.explosion .wrap3d>[data-augmented-ui].tile--home,
+#main.partial-explosion .wrap3d>[data-augmented-ui].tile--home {
     --aug-border-bg: var(--yellow);
     outline: 1px solid var(--yellow);
-    background: repeating-linear-gradient(
-        to right,
-        color-mix(in srgb, var(--yellow) 8%, var(--c1)),
-        color-mix(in srgb, var(--yellow) 14%, var(--c2)) 15%,
-        color-mix(in srgb, var(--yellow) 8%, var(--c1)) 20%
-    );
+    background: repeating-linear-gradient(to right,
+            color-mix(in srgb, var(--yellow) 8%, var(--c1)),
+            color-mix(in srgb, var(--yellow) 14%, var(--c2)) 15%,
+            color-mix(in srgb, var(--yellow) 8%, var(--c1)) 20%);
 }
 
-#main.explosion .wrap3d > [data-augmented-ui].tile--home.selected,
-#main.partial-explosion .wrap3d > [data-augmented-ui].tile--home.selected {
+#main.explosion .wrap3d>[data-augmented-ui].tile--home.selected,
+#main.partial-explosion .wrap3d>[data-augmented-ui].tile--home.selected {
     animation: pulsate-inner 1.5s infinite ease-in-out;
     outline: 2px solid var(--yellow);
     outline-offset: 4px;

@@ -10,7 +10,11 @@
  * to the menu never triggers a second network request.
  */
 
-import type { TileContent, TileLink, TileRecord, WordPressPost } from "../types"
+import type {
+	TileListConfig,
+	TileRecord,
+	WordPressPost,
+} from "../types"
 import { fetchConfig } from "../config"
 import {
 	registerTile,
@@ -21,21 +25,6 @@ import {
 } from "../store"
 
 import { wrap3dEl } from "../dom/elements"
-
-// ---------------------------------------------------------------------------
-// JSON config shape (mirrors public/data/landing.json)
-// ---------------------------------------------------------------------------
-
-interface TileConfig {
-	row: number
-	col: number
-	content: TileContent
-	link: TileLink
-}
-
-interface TileListConfig {
-	tiles: TileConfig[]
-}
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -54,7 +43,6 @@ export async function loadTileList(url: string): Promise<void> {
 	const isLanding = url === fetchConfig.landingUrl
 	const isWordPress = !isLanding && url.startsWith(fetchConfig.wordpressUrl)
 
-	// Fast path: restore landing from the store cache (no network request)
 	if (isLanding) {
 		const cached = getLandingRecords()
 		if (cached) {
@@ -76,7 +64,6 @@ export async function loadTileList(url: string): Promise<void> {
 	} else {
 		const config: TileListConfig = await res.json()
 		parseTileConfig(config)
-		// Cache landing records so future menu-returns are instant
 		if (isLanding) {
 			setLandingRecords(Array.from(getAllTiles().values()))
 		}
@@ -95,8 +82,6 @@ function parseTileConfig(config: TileListConfig): void {
 	clearTileDecorations()
 	clearTiles()
 
-	// Locate elements based on explicit coordinates
-	// Only use direct children to prevent nested augmented elements (e.g. back-btn) from hijacking the pool
 	const domTiles = Array.from(wrap3dEl.children)
 		.filter(el => el.hasAttribute("data-augmented-ui")) as HTMLElement[]
 
@@ -157,8 +142,6 @@ function parseWordPressPosts(posts: WordPressPost[]): void {
 	const allTiles = Array.from(wrap3dEl.children)
 		.filter(el => el.hasAttribute("data-augmented-ui") && el.id !== "central-tile") as HTMLElement[]
 
-	console.log(`[tiles] allTiles found: ${allTiles.length}`)
-
 	// Sort row-major (top-left → bottom-right) for deterministic layout
 	allTiles.sort(byRowMajor)
 
@@ -169,9 +152,7 @@ function parseWordPressPosts(posts: WordPressPost[]): void {
 	) ?? allTiles[allTiles.length - 1]
 
 	const postPool = allTiles.filter(el => el !== homeEl)
-	console.log(`[tiles] postPool: ${postPool.length}, home at row=${cssVar(homeEl, "--row")} col=${cssVar(homeEl, "--col")}`)
 
-	// --- Register the "← Menu" home tile ---
 	const homeRow = parseInt(cssVar(homeEl, "--row") || "0")
 	const homeCol = parseInt(cssVar(homeEl, "--col") || "0")
 	const homeRecord: TileRecord = {

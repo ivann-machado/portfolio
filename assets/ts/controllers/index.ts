@@ -79,14 +79,12 @@ export async function openContent(tile: HTMLElement): Promise<void> {
 	if (mode === "collapsed") return
 	if (mode === "partial-explosion" && !tile.classList.contains("inner-tile")) return
 
-	// Resolve the data record — unregistered tiles are decorative, skip them
 	const record = getTileByEl(tile)
 	if (!record) return
 
 	setIsAnimating(true)
 	clearSelection()
 
-	// --- List tile: swap out the grid with a new tile set ---
 	if (record.link.type === "list") {
 		const transitionStart = performance.now()
 		startTransition()
@@ -106,13 +104,10 @@ export async function openContent(tile: HTMLElement): Promise<void> {
 
 	// --- Post tile: fullscreen content view ---
 
-	// 1. Collapse the grid
 	explosion(false)
 
-	// 2. Render the tile's content into the central pane
 	renderContent(record.wpPost ?? record.content)
 
-	// 3. Orchestrate fullscreen transition timing
 	setTimeout(() => {
 		popTile()
 
@@ -246,7 +241,6 @@ export function moveSelection(direction: "ArrowUp" | "ArrowDown" | "ArrowLeft" |
 	if (direction === "ArrowLeft") dCol = -1
 	if (direction === "ArrowRight") dCol = 1
 
-	// Filter tiles that are strictly in the chosen direction
 	const candidates = availableTiles.filter(t => {
 		const r = parseInt(getComputedStyle(t).getPropertyValue("--row") || t.style.getPropertyValue("--row") || "0")
 		const c = parseInt(getComputedStyle(t).getPropertyValue("--col") || t.style.getPropertyValue("--col") || "0")
